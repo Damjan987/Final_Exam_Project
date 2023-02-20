@@ -13,7 +13,8 @@ router.put(
   userController.followUser
 );
 router.delete("/:userId", authenticateJWT, userController.delete);
-router.get("/follows/:userId", authenticateJWT, userController.getUsersFollows);
+router.get("/:userId/follows", authenticateJWT, userController.getUsersFollows);
+router.get("/:userId/followers", authenticateJWT, userController.getUsersFollowers);
 router.get("/followsCount/:userId", authenticateJWT, userController.getUsersFollowsCount);
 router.get("/followerCount/:userId", authenticateJWT, userController.getUsersFollowerCount);
 router.get("/postCount/:userId", authenticateJWT, userController.getUsersPostCount);

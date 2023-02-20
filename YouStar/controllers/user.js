@@ -95,7 +95,34 @@ exports.getUsersFollows = async (req, res) => {
     const userId = req.params.userId;
     const user = await User.findById(userId);
 
-    res.json(user.follows);
+    const promise = user.follows.map(async (uId) => {
+      const followObject = await User.findById(uId);
+      return followObject;
+    });
+
+    const followsObjects = await Promise.all(promise);
+
+    res.json(followsObjects);
+  } catch (err) {
+    res.status(500).json({
+      errorMessage: "Please try again later",
+    });
+  }
+};
+
+exports.getUsersFollowers = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    const promise = user.followers.map(async (uId) => {
+      const followerObject = await User.findById(uId);
+      return followerObject;
+    });
+
+    const followersObjects = await Promise.all(promise);
+
+    res.json(followersObjects);
   } catch (err) {
     res.status(500).json({
       errorMessage: "Please try again later",
@@ -193,7 +220,7 @@ exports.getPostFeed = async (req, res) => {
       const postObjects = await Post.findById(pId);
       return postObjects;
     });
-    
+
     const postFeed = await Promise.all(promise_3);
 
     res.json(postFeed);
