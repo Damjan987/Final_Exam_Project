@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var schema = new Schema(
+const schema = new Schema(
   {
     text: { type: String, required: true },
     stars: { type: Number, required: false },
@@ -10,6 +10,12 @@ var schema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Comment",
+      },
+    ],
+    likers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
       },
     ],
   },

@@ -27,6 +27,7 @@ const UserSchema = new mongoose.Schema(
     },
     status: { type: String, required: false },
     stars: { type: Number, default: 0, required: false },
+    isBanned: { type: Boolean, default: false },
     posts: [
       {
         type: ObjectId,

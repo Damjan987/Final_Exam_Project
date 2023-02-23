@@ -6,6 +6,10 @@ const { jwtSecret, jwtExpire } = require("../config/keys");
 exports.signupController = async (req, res) => {
   const { firstname, lastname, username, email, birthday, gender, password } = req.body;
 
+  console.log("-------------------------------------");
+  console.log(gender);
+  console.log("-------------------------------------");
+
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -20,10 +24,11 @@ exports.signupController = async (req, res) => {
     newUser.username = username;
     newUser.email = email;
     newUser.birthday = birthday;
+    newUser.isBanned = false;
     newUser.status = "";
     // TODO: change gender select input on frontend and this
     //       so it is no longer hard-coded like this
-    newUser.gender = "male";
+    newUser.gender = gender;
 
     const salt = await bcrypt.genSalt(10);
     newUser.password = await bcrypt.hash(password, salt);
@@ -32,7 +37,6 @@ exports.signupController = async (req, res) => {
 
     res.json({ successMessage: "Registration success. Please signin." });
   } catch (err) {
-    console.log("------- SRANJE -------");
     res.status(500).json({
       errorMessage: "Server error",
     });

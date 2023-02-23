@@ -10,11 +10,16 @@ router.post(
   upload.single("postImage"),
   postController.create
 );
-// TODO read all posts (Don't probably need this)
-// for testing purposes this is OK for now
+
+router.get("/:postId/likers", postController.getPostLikers);
 router.get("/", postController.readAll);
-router.get("/:postId", postController.details);
+router.get("/:postId/:loggedInUserId", postController.details);
 router.put("/:postId", authenticateJWT, postController.update);
-router.delete("/:postId", authenticateJWT, postController.delete);
+router.put("/like/:postId/:likerId", authenticateJWT, postController.likePost);
+router.delete("/:postId/:ownerId", authenticateJWT, postController.delete);
+router.post("/:postId/:userId/postComment", postController.postComment);
+router.get("/:postId/:loggedInUserId/comments", postController.getPostsComments);
+router.put("/like/comment/:commentId/:likerId/:commentOwnerId", postController.likeComment);
+router.delete("/comment/:commentId/:postId/delete", postController.deleteComment);
 
 module.exports = router;
