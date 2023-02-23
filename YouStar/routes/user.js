@@ -19,5 +19,6 @@ router.get("/followsCount/:userId", authenticateJWT, userController.getUsersFoll
 router.get("/followerCount/:userId", authenticateJWT, userController.getUsersFollowerCount);
 router.get("/postCount/:userId", authenticateJWT, userController.getUsersPostCount);
 router.get("/:userId/postFeed", authenticateJWT, userController.getPostFeed);
+router.get("/:userId/posts", authenticateJWT, userController.getUsersPosts);
 
 module.exports = router;

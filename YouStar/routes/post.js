@@ -15,6 +15,7 @@ router.post(
 router.get("/", postController.readAll);
 router.get("/:postId", postController.details);
 router.put("/:postId", authenticateJWT, postController.update);
+router.put("/:postId/:likerId/like", authenticateJWT, postController.likePost);
 router.delete("/:postId", authenticateJWT, postController.delete);
 
 module.exports = router;

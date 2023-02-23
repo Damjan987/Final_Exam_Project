@@ -5,11 +5,7 @@ const fs = require("fs");
 exports.create = async (req, res) => {
   const { filename } = req.file;
 
-  const {
-    postDescription,
-    postLocation,
-    userId,
-  } = req.body;
+  const { postDescription, postLocation, creatorUsername, userId } = req.body;
 
   try {
     let newPost = new Post();
@@ -17,6 +13,7 @@ exports.create = async (req, res) => {
     newPost.description = postDescription;
     newPost.image = filename;
     newPost.location = postLocation;
+    newPost.creatorUsername = creatorUsername;
     newPost.creator = userId;
     newPost.stars = 0;
     await newPost.save();
@@ -88,4 +85,24 @@ exports.delete = async (req, res) => {
       errorMessage: "Please try again later",
     });
   }
+};
+
+exports.likePost = async (req, res) => {
+  const postId = req.params.postId;
+  const likerId = req.params.likerId;
+
+  const post = await Post.findById(postId);
+  const postOwnerId = post.creator;
+  const postOwner = await User.findById(postOwnerId);
+
+  post.stars += 1;
+  post.likers.push(likerId);
+  postOwner.stars += 1;
+
+  await post.save();
+  await postOwner.save();
+
+  res.json({
+    successMessage: "Post liked.",
+  });
 };

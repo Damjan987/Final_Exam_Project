@@ -230,3 +230,23 @@ exports.getPostFeed = async (req, res) => {
     });
   }
 };
+
+exports.getUsersPosts = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    const promise = user.posts.map(async (p) => {
+      const postObjects = await Post.findById(p);
+      return postObjects;
+    });
+
+    const postObjects = await Promise.all(promise);
+
+    res.json(postObjects);
+  } catch (err) {
+    res.status(500).json({
+      errorMessage: "Please try again later",
+    });
+  }
+};

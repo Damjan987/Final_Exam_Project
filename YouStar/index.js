@@ -20,6 +20,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/company", companyRoutes);
 app.use("/api/beer", beerRoutes);
 app.use("/api/post", postRoutes);
+app.use("/uploads", express.static("uploads"));
 
 connectDb();
 
