@@ -21,6 +21,7 @@ exports.create = async (req, res) => {
     newPost.description = postDescription;
     newPost.image = filename;
     newPost.location = postLocation;
+    newPost.creatorUsername = creatorUsername;
     newPost.creator = userId;
     newPost.stars = 0;
     await newPost.save();
