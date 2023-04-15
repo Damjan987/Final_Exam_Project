@@ -52,6 +52,12 @@ const UserSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
+    chats: [
+      {
+        type: ObjectId,
+        ref: "Chat",
+      },
+    ],
   },
   { timestamps: true }
 );

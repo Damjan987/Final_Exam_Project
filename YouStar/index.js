@@ -8,24 +8,7 @@ const connectDb = require("./database/db");
 const userRoutes = require("./routes/user");
 const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
-const { Server } = require("socket.io");
-
-const server = http.createServer(app);
-
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    // methods: ["GET", "POST", "PUT", "DELETE"]
-  },
-});
-
-io.on("connection", (socket) => {
-    console.log(socket.id);
-
-    socket.on("disconnect", () => {
-        console.log("User disconnected", socket.id);
-    });
-});
+const chatRoutes = require("./routes/chat");
 
 // middleware
 app.use(cors());
@@ -35,6 +18,7 @@ app.use(cookieParser());
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/chat", chatRoutes);
 app.use("/uploads", express.static("uploads"));
 
 connectDb();

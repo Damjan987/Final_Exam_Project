@@ -10,8 +10,16 @@ router.get("/mostLikedPost", userController.getMostLikedPost);
 router.get("/mostCommentedPost", userController.getMostCommentedPost);
 router.get("/", userController.readAll);
 router.get("/:userId", userController.read);
-router.get("/filter/:searchName/:searchMode/:loggedInUserId/:postId", userController.getUsersBySeachName);
-router.put("/:userId", authenticateJWT, upload.single("profileImage"), userController.update);
+router.get(
+  "/filter/:searchName/:searchMode/:loggedInUserId/:postId",
+  userController.getUsersBySeachName
+);
+router.put(
+  "/:userId",
+  authenticateJWT,
+  upload.single("profileImage"),
+  userController.update
+);
 router.put(
   "/follow/:followRequesterId/:userId",
   authenticateJWT,

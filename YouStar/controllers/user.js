@@ -126,7 +126,9 @@ exports.getUsersBySeachName = async (req, res) => {
       const allUsers = await User.find({});
 
       allUsers.forEach((u) => {
-        if (u.username.includes(req.params.searchName)) {
+        if (
+          u.username.toLowerCase().includes(req.params.searchName.toLowerCase())
+        ) {
           users.push(u);
         }
       });
@@ -141,7 +143,9 @@ exports.getUsersBySeachName = async (req, res) => {
       const followsObjects = await Promise.all(promise);
 
       followsObjects.forEach((fo) => {
-        if (fo.username.includes(req.params.searchName)) {
+        if (
+          fo.username.toLowerCase().includes(req.params.searchName.toLowerCase())
+        ) {
           users.push(fo);
         }
       });
@@ -156,7 +160,9 @@ exports.getUsersBySeachName = async (req, res) => {
       const followerObjects = await Promise.all(promise);
 
       followerObjects.forEach((fo) => {
-        if (fo.username.includes(req.params.searchName)) {
+        if (
+          fo.username.toLowerCase().includes(req.params.searchName.toLowerCase())
+        ) {
           users.push(fo);
         }
       });
@@ -171,7 +177,9 @@ exports.getUsersBySeachName = async (req, res) => {
       const likerObjects = await Promise.all(promise);
 
       likerObjects.forEach((lo) => {
-        if (lo.username.includes(req.params.searchName)) {
+        if (
+          lo.username.toLowerCase().includes(req.params.searchName.toLowerCase())
+        ) {
           users.push(lo);
         }
       });
